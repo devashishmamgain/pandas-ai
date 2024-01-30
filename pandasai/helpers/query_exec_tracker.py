@@ -195,6 +195,8 @@ class QueryExecTracker:
             ResponseType: formatted response output
         """
         if result["type"] == "dataframe":
+            if len(result["value"]) == 1 and result["value"][0] is None:
+                return result
             df_dict = self.convert_dataframe_to_dict(result["value"])
             return {"type": result["type"], "value": df_dict}
 
